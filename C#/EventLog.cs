@@ -62,9 +62,9 @@ class MySample {
                 // if (entry.TimeGenerated > dt)
                 // if (entry.Source.Equals(".NET Runtime 2.0 Error Reporting") && (entry.TimeGenerated > dt))
                 {
-                    Console.WriteLine(entry.Source);
-                    Console.WriteLine("\t" + entry.EntryType);
-                    Console.WriteLine("\t" + entry.Message);
+                    Console.WriteLine("Source: " + entry.Source);
+                    Console.WriteLine("\tType: " + entry.EntryType);
+                    Console.WriteLine("\tMessage: " + entry.Message);
                     Console.WriteLine("\tEntry ID: " + entry.InstanceId);
                     Console.WriteLine("\tTimestamp: " + entry.TimeGenerated);
                     Console.WriteLine("--------");
