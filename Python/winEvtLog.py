@@ -34,6 +34,8 @@ def GetAllEventLogs():
     hand = win32evtlog.OpenEventLog(server, logtype)
     flags = win32evtlog.EVENTLOG_BACKWARDS_READ|win32evtlog.EVENTLOG_SEQUENTIAL_READ
 
+    eventTypes = {1: 'Error', 2: 'Warning', 4: 'Information'}
+
     # cnxn = DBConnect()
 
     # keep reading event logs until we've read them all
@@ -41,13 +43,13 @@ def GetAllEventLogs():
         events = win32evtlog.ReadEventLog(hand, flags, 0)
         if events:
             for event in events:
-                if event.EventType == win32evtlog.EVENTLOG_ERROR_TYPE: # get only single event type
+                if event.EventType == win32evtlog.EVENTLOG_WARNING_TYPE or event.EventType == win32evtlog.EVENTLOG_ERROR_TYPE: # get only desired event types
                     # DBStoreEntry(cnxn, event) # store event in database
                     print(f'Event Category: {event.EventCategory}')
                     print(f'\tTime Generated: {event.TimeGenerated}')
                     print(f'\tSource Name: {event.SourceName}')
                     print(f'\tEvent ID: {event.EventID}')
-                    print(f'\tEvent Type: {event.EventType}')
+                    print(f'\tEvent Type: {eventTypes[event.EventType]}')
                     data = event.StringInserts
                     if data:
                         print('\tEvent Data:')
